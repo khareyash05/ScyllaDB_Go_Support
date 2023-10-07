@@ -17,6 +17,13 @@ func ListFacts(c *fiber.Ctx) error {
 	})
 }
 
+func NewFactView(c *fiber.Ctx) error {
+	return c.Render("new", fiber.Map{
+		"Title":    "New Fact",
+		"Subtitle": "Add a cool fact!",
+	})
+}
+
 func CreateFact(c *fiber.Ctx) error {
 	fact := new(models.Fact)
 	if err := c.BodyParser(fact); err != nil {
@@ -24,8 +31,13 @@ func CreateFact(c *fiber.Ctx) error {
 			"message": err.Error(),
 		})
 	}
-
 	database.DB.Db.Create(&fact)
+	return ConfirmationView(c)
+}
 
-	return c.Status(200).JSON(fact)
+func ConfirmationView(c *fiber.Ctx) error {
+	return c.Render("confirmation", fiber.Map{
+		"Title":    "Fact added successfully",
+		"Subtitle": "Add more wonderful facts to the list!",
+	})
 }
