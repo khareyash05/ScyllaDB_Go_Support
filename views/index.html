@@ -1,15 +1,22 @@
-<div>
-    {{ if .Facts }}
-        {{ range .Facts }}
-        <div>
-            <p>{{ .Question }}</p>
-            <p>{{ .Answer }}</p>
-        </div>
-        {{ end }}
-    {{ else }}
-        <div>
-            <p>No facts yet.</p>
-            <p><a href="/fact">Add new</a></p>
-        </div>
-    {{ end }}
-</div>
+<!DOCTYPE html>
+<head>
+    <title>Div Rhino Trivia</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="stylesheet" href="style/main.css?=1">
+
+</head>
+<body>
+    <div class="wrapper">
+        {{template "header" .}}
+
+        <h1>{{.Title}}</h1>
+        <h2>
+            {{.Subtitle}}
+        </h2>
+        {{embed}}
+    </div>
+</body>
+<script src="/javascript/app.js"></script>
+</html>
