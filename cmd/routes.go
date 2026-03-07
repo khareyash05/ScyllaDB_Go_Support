@@ -11,4 +11,8 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/fact", handlers.NewFactView)
 
 	app.Post("/fact", handlers.CreateFact)
+
+	// JSON API
+	app.Get("/api/facts", handlers.ListFactsAPI)
+	app.Post("/api/facts", handlers.CreateFactAPI)
 }
