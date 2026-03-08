@@ -23,6 +23,21 @@ paths:
                   service:
                     type: string
                     example: trivia-api
+  /api/facts/count:
+    get:
+      summary: Count facts
+      description: Returns the total number of facts. Useful for pagination.
+      responses:
+        "200":
+          description: Total count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of facts
   /api/facts:
     get:
       summary: List facts

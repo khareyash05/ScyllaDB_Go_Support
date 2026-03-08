@@ -15,6 +15,12 @@ Health check. Returns `{ "status": "ok", "service": "trivia-api" }`.
 
 ---
 
+### GET /api/facts/count
+
+Returns total fact count. `{ "count": N }`
+
+---
+
 ### GET /api/facts
 
 List all trivia facts.

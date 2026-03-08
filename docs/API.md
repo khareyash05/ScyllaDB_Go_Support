@@ -12,6 +12,14 @@ Health check endpoint for load balancers and probes.
 
 ---
 
+### GET /api/facts/count
+
+Returns the total number of facts. Useful for pagination UIs.
+
+**Response:** `200 OK` — `{ "count": 42 }`
+
+---
+
 ### GET /api/facts
 
 List trivia facts with optional pagination.
