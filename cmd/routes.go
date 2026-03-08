@@ -16,5 +16,6 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/api/facts", handlers.ListFactsAPI)
 	app.Post("/api/facts", handlers.CreateFactAPI)
 	app.Get("/api/facts/:id", handlers.GetFactAPI)
+	app.Patch("/api/facts/:id", handlers.UpdateFactAPI)
 	app.Delete("/api/facts/:id", handlers.DeleteFactAPI)
 }

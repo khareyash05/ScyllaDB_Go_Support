@@ -60,6 +60,23 @@ Fetch a single fact by ID.
 
 ---
 
+### PATCH /api/facts/:id
+
+Update a fact by ID. Accepts partial updates (only provided fields are updated).
+
+**Request body:** JSON (all fields optional)
+
+| Field    | Type   | Required | Description         |
+|----------|--------|----------|---------------------|
+| question | string | No       | Updated question    |
+| answer   | string | No       | Updated answer      |
+
+**Response:** `200 OK` — The updated fact object.
+
+**Errors:** `400 Bad Request` — Invalid ID or JSON. `404 Not Found` — Fact not found.
+
+---
+
 ### DELETE /api/facts/:id
 
 Delete a fact by ID.

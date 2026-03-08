@@ -77,6 +77,33 @@ paths:
           description: Invalid ID
         "404":
           description: Fact not found
+    patch:
+      summary: Update a fact
+      description: Updates a trivia fact by ID. Accepts partial updates.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Fact ID
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FactInput"
+      responses:
+        "200":
+          description: The updated fact
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fact"
+        "400":
+          description: Invalid ID or JSON
+        "404":
+          description: Fact not found
     delete:
       summary: Delete a fact
       description: Deletes a trivia fact by ID.

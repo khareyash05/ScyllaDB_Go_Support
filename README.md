@@ -57,6 +57,12 @@ Fetch a single fact by ID. Returns 200 with the fact, or 400/404 on error.
 
 ---
 
+### PATCH /api/facts/:id
+
+Update a fact by ID. Accepts partial JSON body (question, answer). Returns 200 with updated fact.
+
+---
+
 ### DELETE /api/facts/:id
 
 Delete a fact by ID. Returns 204 No Content on success, or 400/404 on error.

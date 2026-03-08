@@ -93,6 +93,39 @@ func GetFactAPI(c *fiber.Ctx) error {
 	return c.JSON(fact)
 }
 
+// UpdateFactAPI updates a fact by ID (for API consumers). Accepts partial updates.
+func UpdateFactAPI(c *fiber.Ctx) error {
+	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "invalid fact id",
+		})
+	}
+	var fact models.Fact
+	if database.DB.Db.First(&fact, id).RowsAffected == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "fact not found",
+		})
+	}
+	var input struct {
+		Question *string `json:"question"`
+		Answer   *string `json:"answer"`
+	}
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "invalid JSON body",
+		})
+	}
+	if input.Question != nil {
+		fact.Question = *input.Question
+	}
+	if input.Answer != nil {
+		fact.Answer = *input.Answer
+	}
+	database.DB.Db.Save(&fact)
+	return c.JSON(fact)
+}
+
 // DeleteFactAPI deletes a fact by ID (for API consumers).
 func DeleteFactAPI(c *fiber.Ctx) error {
 	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
