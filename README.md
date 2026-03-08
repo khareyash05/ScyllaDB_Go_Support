@@ -2,6 +2,11 @@
 
 Trivia facts application with ScyllaDB/Go backend.
 
+## Documentation
+
+- **[API Reference](docs/API.md)** — Full REST API documentation
+- **openapi.yaml** — OpenAPI 3.0 spec for codegen and tooling
+
 ## API Reference
 
 ### GET /api/facts

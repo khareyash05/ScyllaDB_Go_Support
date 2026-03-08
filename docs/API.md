@@ -1,0 +1,51 @@
+# API Documentation
+
+REST API for managing trivia facts. Base URL: `/api`.
+
+## Endpoints
+
+### GET /api/facts
+
+List trivia facts with optional pagination.
+
+| Parameter | In    | Type    | Required | Default | Description                          |
+|-----------|-------|---------|----------|---------|--------------------------------------|
+| limit     | query | integer | No       | 100     | Max facts to return (1–1000)         |
+| offset    | query | integer | No       | 0       | Number of facts to skip (pagination) |
+
+**Response:** `200 OK` — JSON array of facts.
+
+```json
+[
+  {
+    "ID": 1,
+    "question": "What is the capital of France?",
+    "answer": "Paris",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-01-15T10:00:00Z"
+  }
+]
+```
+
+---
+
+### POST /api/facts
+
+Create a new trivia fact.
+
+**Request body:** JSON
+
+| Field    | Type   | Required | Description         |
+|----------|--------|----------|---------------------|
+| question | string | Yes      | The trivia question |
+| answer   | string | Yes      | The answer          |
+
+**Response:** `201 Created` — The created fact (same schema as above).
+
+**Errors:** `500 Internal Server Error` — Invalid JSON or server error.
+
+---
+
+## OpenAPI Spec
+
+The canonical API specification is in `openapi.yaml` at the project root. Use it for code generation, validation, or tooling.
