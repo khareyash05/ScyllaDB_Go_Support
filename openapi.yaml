@@ -5,39 +5,6 @@ info:
   version: 1.0.0
 
 paths:
-  /api/health:
-    get:
-      summary: Health check
-      description: Returns API health status for load balancers and probes.
-      responses:
-        "200":
-          description: Service is healthy
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: ok
-                  service:
-                    type: string
-                    example: trivia-api
-  /api/facts/count:
-    get:
-      summary: Count facts
-      description: Returns the total number of facts. Useful for pagination.
-      responses:
-        "200":
-          description: Total count
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: Total number of facts
   /api/facts:
     get:
       summary: List facts
@@ -87,74 +54,6 @@ paths:
                 $ref: "#/components/schemas/Fact"
         "500":
           description: Server error
-  /api/facts/{id}:
-    get:
-      summary: Get a fact by ID
-      description: Returns a single trivia fact by its ID.
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Fact ID
-          schema:
-            type: integer
-            minimum: 1
-      responses:
-        "200":
-          description: The fact
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Fact"
-        "400":
-          description: Invalid ID
-        "404":
-          description: Fact not found
-    patch:
-      summary: Update a fact
-      description: Updates a trivia fact by ID. Accepts partial updates.
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Fact ID
-          schema:
-            type: integer
-            minimum: 1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/FactInput"
-      responses:
-        "200":
-          description: The updated fact
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Fact"
-        "400":
-          description: Invalid ID or JSON
-        "404":
-          description: Fact not found
-    delete:
-      summary: Delete a fact
-      description: Deletes a trivia fact by ID.
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Fact ID
-          schema:
-            type: integer
-            minimum: 1
-      responses:
-        "204":
-          description: Fact deleted
-        "400":
-          description: Invalid ID
-        "404":
-          description: Fact not found
 
 components:
   schemas:
@@ -186,3 +85,4 @@ components:
           type: string
         answer:
           type: string
+    
