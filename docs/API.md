@@ -8,7 +8,7 @@ REST API for managing trivia facts. Base URL: `/api`.
 
 Health check endpoint for load balancers and probes.
 
-**Response:** `200 OK` — `{ "status": "ok", "service": "trivia-api", "version": "1.0.0" }`
+**Response:** `200 OK` — `{ "status": "ok", "service": "trivia-api", "version": "1.0.0", "timestamp": "2024-01-15T10:00:00Z" }`
 
 ---
 

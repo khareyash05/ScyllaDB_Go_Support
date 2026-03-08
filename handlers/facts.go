@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"strconv"
+	"time"
 
 	"github.com/divrhino/divrhino-trivia/database"
 	"github.com/divrhino/divrhino-trivia/models"
@@ -47,9 +48,10 @@ func ConfirmationView(c *fiber.Ctx) error {
 // HealthAPI returns API health status (for load balancers, k8s probes).
 func HealthAPI(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
-		"status":  "ok",
-		"service": "trivia-api",
-		"version": "1.0.0",
+		"status":    "ok",
+		"service":   "trivia-api",
+		"version":   "1.0.0",
+		"timestamp": time.Now().UTC().Format(time.RFC3339),
 	})
 }
 

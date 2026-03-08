@@ -27,6 +27,11 @@ paths:
                     type: string
                     example: "1.0.0"
                     description: API version
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2024-01-15T10:00:00Z"
+                    description: Server time in RFC3339 format
   /api/facts/count:
     get:
       summary: Count facts
