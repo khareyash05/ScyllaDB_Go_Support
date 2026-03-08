@@ -5,24 +5,6 @@ info:
   version: 1.0.0
 
 paths:
-  /api/health:
-    get:
-      summary: Health check
-      description: Returns API health status for load balancers and probes.
-      responses:
-        "200":
-          description: Service is healthy
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: ok
-                  service:
-                    type: string
-                    example: trivia-api
   /api/facts:
     get:
       summary: List facts
@@ -72,74 +54,6 @@ paths:
                 $ref: "#/components/schemas/Fact"
         "500":
           description: Server error
-  /api/facts/{id}:
-    get:
-      summary: Get a fact by ID
-      description: Returns a single trivia fact by its ID.
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Fact ID
-          schema:
-            type: integer
-            minimum: 1
-      responses:
-        "200":
-          description: The fact
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Fact"
-        "400":
-          description: Invalid ID
-        "404":
-          description: Fact not found
-    patch:
-      summary: Update a fact
-      description: Updates a trivia fact by ID. Accepts partial updates.
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Fact ID
-          schema:
-            type: integer
-            minimum: 1
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/FactInput"
-      responses:
-        "200":
-          description: The updated fact
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Fact"
-        "400":
-          description: Invalid ID or JSON
-        "404":
-          description: Fact not found
-    delete:
-      summary: Delete a fact
-      description: Deletes a trivia fact by ID.
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Fact ID
-          schema:
-            type: integer
-            minimum: 1
-      responses:
-        "204":
-          description: Fact deleted
-        "400":
-          description: Invalid ID
-        "404":
-          description: Fact not found
 
 components:
   schemas:
@@ -171,3 +85,69 @@ components:
           type: string
         answer:
           type: string
+</content>
+  </file>
+  <file path="README.md">
+    <content># ScyllaDB Go Support
+
+Trivia facts application with ScyllaDB/Go backend.
+
+## API Reference
+
+### GET /api/facts
+
+List all trivia facts.
+
+**Parameters:**
+
+| Name   | In    | Type    | Required | Description                                      |
+|--------|-------|---------|----------|--------------------------------------------------|
+| limit  | query | integer | No       | Max facts to return (default 100, max 1000)      |
+| offset | query | integer | No       | Number of facts to skip for pagination (default 0)|
+
+**Output:** JSON array of facts.
+
+```json
+[
+  {
+    "ID": 1,
+    "question": "What is the capital of France?",
+    "answer": "Paris",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-01-15T10:00:00Z"
+  }
+]
+```
+
+---
+
+### POST /api/facts
+
+Create a new trivia fact.
+
+**Parameters:** (JSON body)
+
+| Name     | Type   | Required | Description        |
+|----------|--------|----------|--------------------|
+| question | string | Yes      | The trivia question|
+| answer   | string | Yes      | The answer         |
+
+**Output:** The created fact (201 Created) or error (500).
+
+```json
+{
+  "ID": 2,
+  "question": "How many continents are there?",
+  "answer": "7",
+  "createdAt": "2024-01-15T10:05:00Z",
+  "updatedAt": "2024-01-15T10:05:00Z"
+}
+```
+
+---
+
+### Web UI
+
+- `GET /` - List facts (HTML)
+- `GET /fact` - New fact form (HTML)
+- `POST /fact` - Create fact (form submit, redirects to confirmation)
