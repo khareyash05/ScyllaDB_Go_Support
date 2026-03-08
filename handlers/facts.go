@@ -49,6 +49,7 @@ func HealthAPI(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"status":  "ok",
 		"service": "trivia-api",
+		"version": "1.0.0",
 	})
 }
 

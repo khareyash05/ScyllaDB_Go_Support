@@ -23,6 +23,10 @@ paths:
                   service:
                     type: string
                     example: trivia-api
+                  version:
+                    type: string
+                    example: "1.0.0"
+                    description: API version
   /api/facts/count:
     get:
       summary: Count facts
