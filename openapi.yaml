@@ -50,6 +50,10 @@ paths:
                   api:
                     type: string
                     example: trivia
+                  build:
+                    type: string
+                    example: production
+                    description: Build environment
   /api/facts/count:
     get:
       summary: Count facts

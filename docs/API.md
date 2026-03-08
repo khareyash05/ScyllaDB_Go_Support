@@ -16,7 +16,7 @@ Health check endpoint for load balancers and probes.
 
 Returns API version for client compatibility checks.
 
-**Response:** `200 OK` — `{ "version": "1.0.0", "api": "trivia" }`
+**Response:** `200 OK` — `{ "version": "1.0.0", "api": "trivia", "build": "production" }`
 
 ---
 

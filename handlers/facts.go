@@ -60,6 +60,7 @@ func VersionAPI(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"version": "1.0.0",
 		"api":     "trivia",
+		"build":   "production",
 	})
 }
 

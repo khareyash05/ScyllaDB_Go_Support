@@ -17,7 +17,7 @@ Health check. Returns `{ "status": "ok", "service": "trivia-api", "version": "1.
 
 ### GET /api/version
 
-Returns API version. `{ "version": "1.0.0", "api": "trivia" }`
+Returns API version. `{ "version": "1.0.0", "api": "trivia", "build": "production" }`
 
 ---
 
