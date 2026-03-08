@@ -19,7 +19,7 @@ func ListFacts(c *fiber.Ctx) error {
 	})
 }
 
-func NewFactView(c *fiber.Ctx) error {
+func NewFactView(c *fiber.Ctx, view string) error {
 	return c.Render("new", fiber.Map{
 		"Title":    "New Fact",
 		"Subtitle": "Add a cool fact!",
