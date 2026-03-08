@@ -4,6 +4,14 @@ REST API for managing trivia facts. Base URL: `/api`.
 
 ## Endpoints
 
+### GET /api/health
+
+Health check endpoint for load balancers and probes.
+
+**Response:** `200 OK` — `{ "status": "ok", "service": "trivia-api" }`
+
+---
+
 ### GET /api/facts
 
 List trivia facts with optional pagination.

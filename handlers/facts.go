@@ -44,6 +44,14 @@ func ConfirmationView(c *fiber.Ctx) error {
 	})
 }
 
+// HealthAPI returns API health status (for load balancers, k8s probes).
+func HealthAPI(c *fiber.Ctx) error {
+	return c.JSON(fiber.Map{
+		"status":  "ok",
+		"service": "trivia-api",
+	})
+}
+
 // ListFactsAPI returns facts as JSON (for API consumers).
 // Query params: limit (optional, default 100), offset (optional, default 0) for pagination.
 func ListFactsAPI(c *fiber.Ctx) error {

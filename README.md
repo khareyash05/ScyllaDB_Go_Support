@@ -9,6 +9,12 @@ Trivia facts application with ScyllaDB/Go backend.
 
 ## API Reference
 
+### GET /api/health
+
+Health check. Returns `{ "status": "ok", "service": "trivia-api" }`.
+
+---
+
 ### GET /api/facts
 
 List all trivia facts.

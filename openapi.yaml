@@ -5,6 +5,24 @@ info:
   version: 1.0.0
 
 paths:
+  /api/health:
+    get:
+      summary: Health check
+      description: Returns API health status for load balancers and probes.
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  service:
+                    type: string
+                    example: trivia-api
   /api/facts:
     get:
       summary: List facts
