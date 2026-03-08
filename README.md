@@ -49,15 +49,17 @@ Create a new trivia fact.
 
 **Output:** The created fact (201 Created) or error (500).
 
-```json
-{
-  "ID": 2,
-  "question": "How many continents are there?",
-  "answer": "7",
-  "createdAt": "2024-01-15T10:05:00Z",
-  "updatedAt": "2024-01-15T10:05:00Z"
-}
-```
+---
+
+### GET /api/facts/:id
+
+Fetch a single fact by ID. Returns 200 with the fact, or 400/404 on error.
+
+---
+
+### DELETE /api/facts/:id
+
+Delete a fact by ID. Returns 204 No Content on success, or 400/404 on error.
 
 ---
 

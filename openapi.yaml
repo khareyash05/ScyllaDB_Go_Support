@@ -54,6 +54,47 @@ paths:
                 $ref: "#/components/schemas/Fact"
         "500":
           description: Server error
+  /api/facts/{id}:
+    get:
+      summary: Get a fact by ID
+      description: Returns a single trivia fact by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Fact ID
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: The fact
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fact"
+        "400":
+          description: Invalid ID
+        "404":
+          description: Fact not found
+    delete:
+      summary: Delete a fact
+      description: Deletes a trivia fact by ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Fact ID
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "204":
+          description: Fact deleted
+        "400":
+          description: Invalid ID
+        "404":
+          description: Fact not found
 
 components:
   schemas:

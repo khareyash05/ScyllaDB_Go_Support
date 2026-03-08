@@ -75,3 +75,37 @@ func CreateFactAPI(c *fiber.Ctx) error {
 	database.DB.Db.Create(&fact)
 	return c.Status(fiber.StatusCreated).JSON(fact)
 }
+
+// GetFactAPI returns a single fact by ID (for API consumers).
+func GetFactAPI(c *fiber.Ctx) error {
+	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "invalid fact id",
+		})
+	}
+	var fact models.Fact
+	if database.DB.Db.First(&fact, id).RowsAffected == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "fact not found",
+		})
+	}
+	return c.JSON(fact)
+}
+
+// DeleteFactAPI deletes a fact by ID (for API consumers).
+func DeleteFactAPI(c *fiber.Ctx) error {
+	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "invalid fact id",
+		})
+	}
+	result := database.DB.Db.Delete(&models.Fact{}, id)
+	if result.RowsAffected == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "fact not found",
+		})
+	}
+	return c.SendStatus(fiber.StatusNoContent)
+}

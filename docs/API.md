@@ -46,6 +46,34 @@ Create a new trivia fact.
 
 ---
 
+### GET /api/facts/:id
+
+Fetch a single fact by ID.
+
+| Parameter | In   | Type | Required | Description      |
+|-----------|------|------|----------|------------------|
+| id        | path | uint | Yes      | Fact ID          |
+
+**Response:** `200 OK` — The fact object.
+
+**Errors:** `400 Bad Request` — Invalid ID. `404 Not Found` — Fact not found.
+
+---
+
+### DELETE /api/facts/:id
+
+Delete a fact by ID.
+
+| Parameter | In   | Type | Required | Description      |
+|-----------|------|------|----------|------------------|
+| id        | path | uint | Yes      | Fact ID          |
+
+**Response:** `204 No Content` — Fact deleted.
+
+**Errors:** `400 Bad Request` — Invalid ID. `404 Not Found` — Fact not found.
+
+---
+
 ## OpenAPI Spec
 
 The canonical API specification is in `openapi.yaml` at the project root. Use it for code generation, validation, or tooling.
