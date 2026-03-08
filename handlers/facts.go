@@ -60,7 +60,7 @@ func CountFactsAPI(c *fiber.Ctx) error {
 }
 
 // ListFactsAPI returns facts as JSON (for API consumers).
-// Query params: limit (optional, default 100), offset (optional, default 0) for pagination.
+// Query params: limit (optional, default 100), offset (optional, default 0), sort (optional: asc|desc, default desc by createdAt).
 func ListFactsAPI(c *fiber.Ctx) error {
 	limit := 100
 	if v := c.Query("limit"); v != "" {
@@ -74,8 +74,12 @@ func ListFactsAPI(c *fiber.Ctx) error {
 			offset = n
 		}
 	}
+	order := "created_at DESC"
+	if v := c.Query("sort"); v == "asc" {
+		order = "created_at ASC"
+	}
 	facts := []models.Fact{}
-	database.DB.Db.Limit(limit).Offset(offset).Find(&facts)
+	database.DB.Db.Order(order).Limit(limit).Offset(offset).Find(&facts)
 	return c.JSON(facts)
 }
 

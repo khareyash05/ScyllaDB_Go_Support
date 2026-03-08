@@ -60,6 +60,14 @@ paths:
             type: integer
             default: 0
             minimum: 0
+        - name: sort
+          in: query
+          required: false
+          description: Sort order - asc (oldest first) or desc (newest first, default)
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
       responses:
         "200":
           description: List of facts

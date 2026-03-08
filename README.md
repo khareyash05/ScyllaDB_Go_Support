@@ -31,6 +31,7 @@ List all trivia facts.
 |--------|-------|---------|----------|--------------------------------------------------|
 | limit  | query | integer | No       | Max facts to return (default 100, max 1000)      |
 | offset | query | integer | No       | Number of facts to skip for pagination (default 0)|
+| sort   | query | string  | No       | `asc` (oldest first) or `desc` (newest, default) |
 
 **Output:** JSON array of facts.
 

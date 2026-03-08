@@ -24,10 +24,11 @@ Returns the total number of facts. Useful for pagination UIs.
 
 List trivia facts with optional pagination.
 
-| Parameter | In    | Type    | Required | Default | Description                          |
-|-----------|-------|---------|----------|---------|--------------------------------------|
+| Parameter | In    | Type   | Required | Default | Description                          |
+|-----------|-------|--------|----------|---------|--------------------------------------|
 | limit     | query | integer | No       | 100     | Max facts to return (1–1000)         |
 | offset    | query | integer | No       | 0       | Number of facts to skip (pagination) |
+| sort      | query | string | No       | desc    | Sort order: `asc` (oldest first) or `desc` (newest first) |
 
 **Response:** `200 OK` — JSON array of facts.
 
