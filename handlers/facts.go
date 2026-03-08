@@ -55,6 +55,14 @@ func HealthAPI(c *fiber.Ctx) error {
 	})
 }
 
+// VersionAPI returns API version info (for clients to check compatibility).
+func VersionAPI(c *fiber.Ctx) error {
+	return c.JSON(fiber.Map{
+		"version": "1.0.0",
+		"api":     "trivia",
+	})
+}
+
 // CountFactsAPI returns the total number of facts (for pagination UIs).
 func CountFactsAPI(c *fiber.Ctx) error {
 	var count int64

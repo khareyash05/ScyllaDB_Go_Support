@@ -14,6 +14,7 @@ func setupRoutes(app *fiber.App) {
 
 	// JSON API
 	app.Get("/api/health", handlers.HealthAPI)
+	app.Get("/api/version", handlers.VersionAPI)
 	app.Get("/api/facts/count", handlers.CountFactsAPI)
 	app.Get("/api/facts", handlers.ListFactsAPI)
 	app.Post("/api/facts", handlers.CreateFactAPI)

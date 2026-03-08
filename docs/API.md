@@ -12,6 +12,14 @@ Health check endpoint for load balancers and probes.
 
 ---
 
+### GET /api/version
+
+Returns API version for client compatibility checks.
+
+**Response:** `200 OK` — `{ "version": "1.0.0", "api": "trivia" }`
+
+---
+
 ### GET /api/facts/count
 
 Returns the total number of facts. Useful for pagination UIs.

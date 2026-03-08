@@ -32,6 +32,24 @@ paths:
                     format: date-time
                     example: "2024-01-15T10:00:00Z"
                     description: Server time in RFC3339 format
+  /api/version:
+    get:
+      summary: Get API version
+      description: Returns API version for client compatibility checks.
+      responses:
+        "200":
+          description: Version info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: "1.0.0"
+                  api:
+                    type: string
+                    example: trivia
   /api/facts/count:
     get:
       summary: Count facts

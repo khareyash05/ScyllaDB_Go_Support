@@ -15,6 +15,12 @@ Health check. Returns `{ "status": "ok", "service": "trivia-api", "version": "1.
 
 ---
 
+### GET /api/version
+
+Returns API version. `{ "version": "1.0.0", "api": "trivia" }`
+
+---
+
 ### GET /api/facts/count
 
 Returns total fact count. `{ "count": N }`
