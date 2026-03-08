@@ -24,11 +24,10 @@ Returns the total number of facts. Useful for pagination UIs.
 
 List trivia facts with optional pagination.
 
-| Parameter | In    | Type   | Required | Default | Description                          |
-|-----------|-------|--------|----------|---------|--------------------------------------|
+| Parameter | In    | Type    | Required | Default | Description                          |
+|-----------|-------|---------|----------|---------|--------------------------------------|
 | limit     | query | integer | No       | 100     | Max facts to return (1–1000)         |
 | offset    | query | integer | No       | 0       | Number of facts to skip (pagination) |
-| sort      | query | string | No       | desc    | Sort order: `asc` (oldest first) or `desc` (newest first) |
 
 **Response:** `200 OK` — JSON array of facts.
 
@@ -102,12 +101,6 @@ Delete a fact by ID.
 |-----------|------|------|----------|------------------|
 | id        | path | uint | Yes      | Fact ID          |
 
-**Response:** `204 No Content` — Fact deleted.
+**Response:** `204 No Content` — Successfully deleted.
 
 **Errors:** `400 Bad Request` — Invalid ID. `404 Not Found` — Fact not found.
-
----
-
-## OpenAPI Spec
-
-The canonical API specification is in `openapi.yaml` at the project root. Use it for code generation, validation, or tooling.
