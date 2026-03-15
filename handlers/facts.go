@@ -147,6 +147,23 @@ func GetRandomFactAPI(c *fiber.Ctx) error {
 	return c.JSON(fact)
 }
 
+// GetFactVotesAPI retrieves the upvotes/downvotes for a specific fact (for API consumers).
+func GetFactVotesAPI(c *fiber.Ctx) error {
+	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "invalid fact id",
+		})
+	}
+	// Note: in a real application this would query a votes table.
+	// For now we'll mock that every fact has 5 upvotes and 2 downvotes.
+	return c.JSON(fiber.Map{
+		"fact_id": id,
+		"upvotes": 5,
+		"downvotes": 2,
+	})
+}
+
 // UpdateFactAPI updates a fact by ID (for API consumers). Accepts partial updates.
 func UpdateFactAPI(c *fiber.Ctx) error {
 	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
