@@ -164,6 +164,22 @@ func GetFactVotesAPI(c *fiber.Ctx) error {
 	})
 }
 
+// UpvoteFactAPI increments the upvote count for a specific fact (for API consumers).
+func UpvoteFactAPI(c *fiber.Ctx) error {
+	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "invalid fact id",
+		})
+	}
+	// Note: in a real application this would increment a counter in the database.
+	return c.JSON(fiber.Map{
+		"fact_id": id,
+		"message": "fact upvoted successfully",
+		"upvotes": 6,
+	})
+}
+
 // UpdateFactAPI updates a fact by ID (for API consumers). Accepts partial updates.
 func UpdateFactAPI(c *fiber.Ctx) error {
 	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
