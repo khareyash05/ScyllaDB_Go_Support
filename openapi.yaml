@@ -91,14 +91,6 @@ paths:
             type: integer
             default: 0
             minimum: 0
-        - name: sort
-          in: query
-          required: false
-          description: Sort order - asc (oldest first) or desc (newest first, default)
-          schema:
-            type: string
-            enum: [asc, desc]
-            default: desc
       responses:
         "200":
           description: List of facts
@@ -202,26 +194,27 @@ components:
       properties:
         ID:
           type: integer
-          description: Unique identifier
+          example: 1
+        question:
+          type: string
+          example: "What is the capital of France?"
+        answer:
+          type: string
+          example: "Paris"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+    FactInput:
+      type: object
+      properties:
         question:
           type: string
           description: The trivia question
         answer:
           type: string
-          description: The answer to the question
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    FactInput:
-      type: object
-      required:
-        - question
-        - answer
-      properties:
-        question:
-          type: string
-        answer:
-          type: string
+          description: The answer
