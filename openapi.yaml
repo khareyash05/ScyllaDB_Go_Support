@@ -1,17 +1,18 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  title: ScyllaDB Go Support API
-  description: API for managing trivia facts.
+  title: Trivia API
+  description: REST API for managing trivia facts.
   version: 1.0.0
-
+servers:
+  - url: /
 paths:
   /api/health:
     get:
       summary: Health check
-      description: Returns API health status for load balancers and probes.
+      description: Health check endpoint for load balancers and probes.
       responses:
         "200":
-          description: Service is healthy
+          description: OK
           content:
             application/json:
               schema:
@@ -19,26 +20,19 @@ paths:
                 properties:
                   status:
                     type: string
-                    example: ok
                   service:
                     type: string
-                    example: trivia-api
                   version:
                     type: string
-                    example: "1.0.0"
-                    description: API version
                   timestamp:
                     type: string
-                    format: date-time
-                    example: "2024-01-15T10:00:00Z"
-                    description: Server time in RFC3339 format
   /api/version:
     get:
       summary: Get API version
-      description: Returns API version for client compatibility checks.
+      description: Returns API version.
       responses:
         "200":
-          description: Version info
+          description: OK
           content:
             application/json:
               schema:
@@ -46,21 +40,17 @@ paths:
                 properties:
                   version:
                     type: string
-                    example: "1.0.0"
                   api:
                     type: string
-                    example: trivia
                   build:
                     type: string
-                    example: production
-                    description: Build environment
   /api/facts/count:
     get:
-      summary: Count facts
-      description: Returns the total number of facts. Useful for pagination.
+      summary: Get facts count
+      description: Returns the total number of facts. Useful for pagination UIs.
       responses:
         "200":
-          description: Total count
+          description: OK
           content:
             application/json:
               schema:
@@ -68,40 +58,35 @@ paths:
                 properties:
                   count:
                     type: integer
-                    description: Total number of facts
   /api/facts:
     get:
       summary: List facts
-      description: Returns a list of trivia facts.
+      description: List trivia facts with optional pagination.
       parameters:
         - name: limit
           in: query
           required: false
-          description: Maximum number of facts to return (default 100, max 1000)
+          description: Max facts to return (1-1000)
           schema:
             type: integer
             default: 100
-            minimum: 1
-            maximum: 1000
         - name: offset
           in: query
           required: false
-          description: Number of facts to skip for pagination (default 0)
+          description: Number of facts to skip (pagination)
           schema:
             type: integer
             default: 0
-            minimum: 0
         - name: sort
           in: query
           required: false
-          description: Sort order - asc (oldest first) or desc (newest first, default)
+          description: Sort order asc or desc
           schema:
             type: string
-            enum: [asc, desc]
             default: desc
       responses:
         "200":
-          description: List of facts
+          description: OK
           content:
             application/json:
               schema:
@@ -126,6 +111,47 @@ paths:
                 $ref: "#/components/schemas/Fact"
         "500":
           description: Server error
+  /api/facts/search:
+    get:
+      summary: Search facts
+      description: Searches for facts by question or answer keywords.
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Keyword to search in questions or answers
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Fact"
+        "400":
+          description: Bad request (missing q parameter)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "query parameter 'q' is required"
+  /api/facts/random:
+    get:
+      summary: Get a random fact
+      description: Returns a single random fact.
+      responses:
+        "200":
+          description: Random fact
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fact"
   /api/facts/{id}:
     get:
       summary: Get a fact by ID
@@ -146,12 +172,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Fact"
         "400":
-          description: Invalid ID
+          description: Bad Request
         "404":
-          description: Fact not found
+          description: Not Found
     patch:
       summary: Update a fact
-      description: Updates a trivia fact by ID. Accepts partial updates.
+      description: Update a fact by ID. Accepts partial updates (only provided fields are updated).
       parameters:
         - name: id
           in: path
@@ -161,24 +187,25 @@ paths:
             type: integer
             minimum: 1
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/FactInput"
       responses:
         "200":
-          description: The updated fact
+          description: The updated fact object
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Fact"
         "400":
-          description: Invalid ID or JSON
+          description: Bad Request
         "404":
-          description: Fact not found
+          description: Not Found
     delete:
       summary: Delete a fact
-      description: Deletes a trivia fact by ID.
+      description: Delete a fact by ID.
       parameters:
         - name: id
           in: path
@@ -189,12 +216,11 @@ paths:
             minimum: 1
       responses:
         "204":
-          description: Fact deleted
+          description: No Content
         "400":
-          description: Invalid ID
+          description: Bad Request
         "404":
-          description: Fact not found
-
+          description: Not Found
 components:
   schemas:
     Fact:
@@ -202,26 +228,28 @@ components:
       properties:
         ID:
           type: integer
-          description: Unique identifier
+          example: 1
+        question:
+          type: string
+          example: "What is the capital of France?"
+        answer:
+          type: string
+          example: "Paris"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+    FactInput:
+      type: object
+      properties:
         question:
           type: string
           description: The trivia question
         answer:
           type: string
-          description: The answer to the question
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    FactInput:
-      type: object
-      required:
-        - question
-        - answer
-      properties:
-        question:
-          type: string
-        answer:
-          type: string
+          description: The answer
+    
