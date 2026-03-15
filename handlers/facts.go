@@ -58,18 +58,14 @@ func HealthAPI(c *fiber.Ctx) error {
 // VersionAPI returns API version info (for clients to check compatibility).
 func VersionAPI(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
-		"version": "1.0.0",
+		"version": "1.1.0",
 		"api":     "trivia",
 		"build":   "production",
+		"region":  "us-east",
 	})
 }
 
-// CountFactsAPI returns the total number of facts (for pagination UIs).
-func CountFactsAPI(c *fiber.Ctx) error {
-	var count int64
-	database.DB.Db.Model(&models.Fact{}).Count(&count)
-	return c.JSON(fiber.Map{"count": count})
-}
+
 
 // ListFactsAPI returns facts as JSON (for API consumers).
 // Query params: limit (optional, default 100), offset (optional, default 0), sort (optional: asc|desc, default desc by createdAt).
