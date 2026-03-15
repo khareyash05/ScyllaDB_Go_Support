@@ -124,6 +124,17 @@ func GetFactAPI(c *fiber.Ctx) error {
 	return c.JSON(fact)
 }
 
+// GetRandomFactAPI returns a single random fact (for API consumers).
+func GetRandomFactAPI(c *fiber.Ctx) error {
+	var fact models.Fact
+	if database.DB.Db.Order("RANDOM()").First(&fact).RowsAffected == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "no facts available",
+		})
+	}
+	return c.JSON(fact)
+}
+
 // UpdateFactAPI updates a fact by ID (for API consumers). Accepts partial updates.
 func UpdateFactAPI(c *fiber.Ctx) error {
 	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
