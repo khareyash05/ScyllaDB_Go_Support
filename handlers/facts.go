@@ -124,6 +124,22 @@ func GetFactAPI(c *fiber.Ctx) error {
 	return c.JSON(fact)
 }
 
+// SearchFactsAPI searches for facts by question or answer keywords.
+func SearchFactsAPI(c *fiber.Ctx) error {
+	query := c.Query("q")
+	if query == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "query parameter 'q' is required",
+		})
+	}
+	
+	facts := []models.Fact{}
+	searchStr := "%" + query + "%"
+	database.DB.Db.Where("question LIKE ? OR answer LIKE ?", searchStr, searchStr).Limit(50).Find(&facts)
+	
+	return c.JSON(facts)
+}
+
 // GetRandomFactAPI returns a single random fact (for API consumers).
 func GetRandomFactAPI(c *fiber.Ctx) error {
 	var fact models.Fact
